@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "🚜  Running lint format ..."
+
+./gradlew ktlintCheck --daemon
+
+status=$?
+
+[ $status -ne 0 ] && exit 1
+exit 0

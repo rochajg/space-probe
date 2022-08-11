@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.7.2"
-    id("io.spring.dependency-management") version "1.0.12.RELEASE"
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.spring") version "1.6.21"
-    kotlin("plugin.jpa") version "1.6.21"
+    id("org.springframework.boot")
+    id("io.spring.dependency-management")
+    id("org.jlleitschuh.gradle.ktlint")
+    kotlin("jvm")
+    kotlin("plugin.spring")
 }
 
 group = "com.example"
@@ -17,7 +17,6 @@ repositories {
 }
 
 dependencies {
-//    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -37,4 +36,14 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+val installGitHook by tasks.registering(Copy::class) {
+    from(file("${rootProject.rootDir}/hooks/pre-commit"))
+    into(file("${rootProject.rootDir}/.git/hooks"))
+    fileMode = 0b111111101 // 775
+}
+
+tasks.build {
+    dependsOn(installGitHook)
 }
