@@ -3,10 +3,11 @@ package com.example.spaceprobe.domain.usecase.landprobe
 import com.example.spaceprobe.domain.entity.Command
 import com.example.spaceprobe.domain.entity.Direction
 import com.example.spaceprobe.domain.entity.MoveCommand
+import com.example.spaceprobe.domain.entity.Planet
 import com.example.spaceprobe.domain.entity.Position
 import com.example.spaceprobe.domain.entity.RotateCommand
 import com.example.spaceprobe.domain.entity.SpaceProbe
-import com.example.spaceprobe.domain.entity.isOffset
+import com.example.spaceprobe.domain.entity.isOutOfBounds
 import com.example.spaceprobe.domain.entity.moveX
 import com.example.spaceprobe.domain.entity.moveY
 import com.example.spaceprobe.domain.usecase.landprobe.exception.InvalidCommandException
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service
 class DefineProbeLandingUseCase {
 
     companion object {
-        private val PLANET_SIZE = Position(x = 5, y = 5)
+        private val PLANET = Planet(Position(x = 5, y = 5))
     }
 
     fun landingPosition(spaceProbe: SpaceProbe, commands: String): SpaceProbe {
@@ -45,10 +46,10 @@ class DefineProbeLandingUseCase {
         }
 
     private fun isValidPosition(spaceProbe: SpaceProbe) {
-        if (PLANET_SIZE.isOffset(spaceProbe.position)) {
+        if (PLANET.isOutOfBounds(spaceProbe.position)) {
             throw ProbeOutOfBoundsException(
-                probePosition = spaceProbe.position,
-                planetSize = PLANET_SIZE
+                probe = spaceProbe,
+                planet = PLANET
             )
         }
     }

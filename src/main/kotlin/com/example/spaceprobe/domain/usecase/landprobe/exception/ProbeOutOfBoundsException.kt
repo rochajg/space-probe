@@ -1,14 +1,19 @@
 package com.example.spaceprobe.domain.usecase.landprobe.exception
 
-import com.example.spaceprobe.domain.entity.Position
+import com.example.spaceprobe.domain.entity.Planet
+import com.example.spaceprobe.domain.entity.SpaceProbe
+import com.example.spaceprobe.domain.entity.forms.Square
 
 class ProbeOutOfBoundsException(
-    val probePosition: Position,
-    val planetSize: Position
+    val probe: SpaceProbe,
+    val planet: Planet
 ) : Exception()
 
 fun ProbeOutOfBoundsException.formattedProbe() =
-    "probe(x: ${this.probePosition.x}, y: ${this.probePosition.y})"
+    "probe(x: ${this.probe.position.x}, y: ${this.probe.position.y})"
 
 fun ProbeOutOfBoundsException.formattedPlanet() =
-    "planet(x: ${this.planetSize.x}, y: ${this.planetSize.y})"
+    "planet(${this.planet.area.formattedArea()})"
+
+private fun Square.formattedArea() =
+    "base(x: ${this.base.x}, y: ${this.base.y}), bound(x: ${this.size.x}, y: ${this.size.y})"

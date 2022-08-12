@@ -12,5 +12,3 @@ fun Position.moveY(steps: Int) = this.copy(
 fun Position.moveX(steps: Int) = this.copy(
     x = this.x + steps
 )
-
-fun Position.isOffset(pos: Position): Boolean = pos.x > this.x || pos.y > this.y
