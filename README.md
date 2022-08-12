@@ -27,3 +27,15 @@ This command set should produce this response:
 	"direction": "W"
 }
 ```
+
+
+### Next Steps
+
+- [ ] Add unit tests:
+  - [ ] Add tests for existing classes;
+  - [ ] Configure CI/CD tool;
+  - [ ] Review coverage to be up to 80%;
+- [ ] Create SpacialProbe manager:
+  - [ ] Create new Probe;
+  - [ ] Update Probe infos;
+  - [ ] Get Probe infos;
