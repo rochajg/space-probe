@@ -1,4 +1,4 @@
-package com.example.spaceprobe.domain.usecase.landprobe.exception
+package com.example.spaceprobe.usecase.landprobe.exception
 
 class InvalidCommandException(
     val command: String

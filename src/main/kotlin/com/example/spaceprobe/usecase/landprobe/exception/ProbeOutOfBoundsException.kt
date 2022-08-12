@@ -1,4 +1,4 @@
-package com.example.spaceprobe.domain.usecase.landprobe.exception
+package com.example.spaceprobe.usecase.landprobe.exception
 
 import com.example.spaceprobe.domain.entity.Planet
 import com.example.spaceprobe.domain.entity.SpaceProbe

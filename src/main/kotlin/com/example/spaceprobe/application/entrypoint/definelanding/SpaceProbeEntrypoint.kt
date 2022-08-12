@@ -4,11 +4,11 @@ import com.example.spaceprobe.application.entrypoint.definelanding.entity.Reques
 import com.example.spaceprobe.application.entrypoint.definelanding.entity.toDomain
 import com.example.spaceprobe.application.exception.BadRequestException
 import com.example.spaceprobe.domain.entity.SpaceProbe
-import com.example.spaceprobe.domain.usecase.landprobe.DefineProbeLandingUseCase
-import com.example.spaceprobe.domain.usecase.landprobe.exception.InvalidCommandException
-import com.example.spaceprobe.domain.usecase.landprobe.exception.ProbeOutOfBoundsException
-import com.example.spaceprobe.domain.usecase.landprobe.exception.formattedPlanet
-import com.example.spaceprobe.domain.usecase.landprobe.exception.formattedProbe
+import com.example.spaceprobe.usecase.landprobe.DefineProbeLandingUseCase
+import com.example.spaceprobe.usecase.landprobe.exception.InvalidCommandException
+import com.example.spaceprobe.usecase.landprobe.exception.ProbeOutOfBoundsException
+import com.example.spaceprobe.usecase.landprobe.exception.formattedPlanet
+import com.example.spaceprobe.usecase.landprobe.exception.formattedProbe
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping

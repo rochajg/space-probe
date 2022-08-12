@@ -1,4 +1,4 @@
-package com.example.spaceprobe.domain.usecase.landprobe
+package com.example.spaceprobe.usecase.landprobe
 
 import com.example.spaceprobe.domain.entity.Command
 import com.example.spaceprobe.domain.entity.Direction
@@ -10,8 +10,8 @@ import com.example.spaceprobe.domain.entity.SpaceProbe
 import com.example.spaceprobe.domain.entity.isOutOfBounds
 import com.example.spaceprobe.domain.entity.moveX
 import com.example.spaceprobe.domain.entity.moveY
-import com.example.spaceprobe.domain.usecase.landprobe.exception.InvalidCommandException
-import com.example.spaceprobe.domain.usecase.landprobe.exception.ProbeOutOfBoundsException
+import com.example.spaceprobe.usecase.landprobe.exception.InvalidCommandException
+import com.example.spaceprobe.usecase.landprobe.exception.ProbeOutOfBoundsException
 import org.springframework.stereotype.Service
 
 @Service
