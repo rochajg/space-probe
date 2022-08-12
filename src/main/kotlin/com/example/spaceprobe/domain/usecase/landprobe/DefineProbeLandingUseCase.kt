@@ -9,6 +9,8 @@ import com.example.spaceprobe.domain.entity.SpaceProbe
 import com.example.spaceprobe.domain.entity.isOffset
 import com.example.spaceprobe.domain.entity.moveX
 import com.example.spaceprobe.domain.entity.moveY
+import com.example.spaceprobe.domain.usecase.landprobe.exception.InvalidCommandException
+import com.example.spaceprobe.domain.usecase.landprobe.exception.ProbeOutOfBoundsException
 import org.springframework.stereotype.Service
 
 @Service
@@ -24,7 +26,7 @@ class DefineProbeLandingUseCase {
             .also(::isValidPosition)
     }
 
-    private fun parseCommands(commands: String): List<Command?> =
+    private fun parseCommands(commands: String): List<Command> =
         commands.toList()
             .map(Char::toString)
             .map(String::uppercase)
@@ -32,20 +34,22 @@ class DefineProbeLandingUseCase {
                 when {
                     MoveCommand.exists(it) -> MoveCommand.valueOf(it)
                     RotateCommand.exists(it) -> RotateCommand.valueOf(it)
-                    else -> null
+                    else -> throw InvalidCommandException(it)
                 }
             }
 
-    private fun performCommand(spaceProbe: SpaceProbe, command: Command?): SpaceProbe =
+    private fun performCommand(spaceProbe: SpaceProbe, command: Command): SpaceProbe =
         when (command) {
             is MoveCommand -> performMovement(spaceProbe, command)
-            is RotateCommand -> performRotation(spaceProbe, command)
-            else -> throw Exception("Command '$command' is not a valid command")
+            else -> performRotation(spaceProbe, command as RotateCommand)
         }
 
     private fun isValidPosition(spaceProbe: SpaceProbe) {
         if (PLANET_SIZE.isOffset(spaceProbe.position)) {
-            throw Exception("Probe cannot land outside of planet")
+            throw ProbeOutOfBoundsException(
+                probePosition = spaceProbe.position,
+                planetSize = PLANET_SIZE
+            )
         }
     }
 

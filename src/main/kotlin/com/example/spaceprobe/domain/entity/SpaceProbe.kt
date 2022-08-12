@@ -5,11 +5,6 @@ data class SpaceProbe(
     val direction: Direction
 )
 
-data class Position(
-    val x: Int,
-    val y: Int
-)
-
 enum class Direction {
     N {
         override fun rotateClockwise() = E
@@ -31,13 +26,3 @@ enum class Direction {
     abstract fun rotateClockwise(): Direction
     abstract fun rotateCounterClockwise(): Direction
 }
-
-fun Position.moveY(steps: Int) = this.copy(
-    y = this.y + steps
-)
-
-fun Position.moveX(steps: Int) = this.copy(
-    x = this.x + steps
-)
-
-fun Position.isOffset(pos: Position): Boolean = pos.x > this.x || pos.y > this.y

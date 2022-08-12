@@ -1,11 +1,14 @@
 package com.example.spaceprobe.application.entrypoint.definelanding
 
-import com.example.spaceprobe.application.entrypoint.definelanding.entity.RequestSpaceProbe
 import com.example.spaceprobe.application.entrypoint.definelanding.entity.RequestSpacialProbe
-import com.example.spaceprobe.domain.entity.Direction
-import com.example.spaceprobe.domain.entity.Position
+import com.example.spaceprobe.application.entrypoint.definelanding.entity.toDomain
+import com.example.spaceprobe.application.exception.BadRequestException
 import com.example.spaceprobe.domain.entity.SpaceProbe
 import com.example.spaceprobe.domain.usecase.landprobe.DefineProbeLandingUseCase
+import com.example.spaceprobe.domain.usecase.landprobe.exception.InvalidCommandException
+import com.example.spaceprobe.domain.usecase.landprobe.exception.ProbeOutOfBoundsException
+import com.example.spaceprobe.domain.usecase.landprobe.exception.formattedPlanet
+import com.example.spaceprobe.domain.usecase.landprobe.exception.formattedProbe
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -20,15 +23,17 @@ class SpaceProbeEntrypoint(
     @PostMapping
     fun defineLandingLocation(
         @RequestBody body: RequestSpacialProbe
-    ): SpaceProbe =
+    ): SpaceProbe = try {
         useCase.landingPosition(body.probe.toDomain(), body.commands)
-
-    private fun RequestSpaceProbe.toDomain(): SpaceProbe =
-        SpaceProbe(
-            position = Position(
-                x = this.x,
-                y = this.y
-            ),
-            direction = Direction.valueOf(this.dir)
+    } catch (ex: InvalidCommandException) {
+        throw BadRequestException(
+            message = "Command '${ex.command}' is not a valid command",
+            cause = ex
         )
+    } catch (ex: ProbeOutOfBoundsException) {
+        throw BadRequestException(
+            message = "Probe can't land outside of planet [${ex.formattedProbe()}, ${ex.formattedPlanet()}]",
+            cause = ex
+        )
+    }
 }
