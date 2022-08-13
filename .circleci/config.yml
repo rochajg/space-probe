@@ -60,11 +60,11 @@ jobs:
       # Generate JaCoCo report
       - run:
           name: "Generating Tests Report"
-          command: ./gradlew jacocoTestReport
+          command: ./gradlew koverXmlReport
 
       # Upload coverages metrics to CodeCov
       - codecov/upload:
-          file: './build/reports/jacoco/test/jacocoTestReport.xml'
+          file: './build/reports/kover/xml/report.xml'
 
 # Workflows allow you to define the order of execution of jobs.
 # For a single job, like in this example, the workflows section can be omitted

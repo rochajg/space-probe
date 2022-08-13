@@ -6,6 +6,7 @@ plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     id("org.jlleitschuh.gradle.ktlint")
+    id("org.jetbrains.kotlinx.kover")
     kotlin("jvm")
     kotlin("plugin.spring")
 }
@@ -41,6 +42,17 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+kover {
+    isDisabled.set(false) // true to disable instrumentation and all Kover tasks in this project
+    engine.set(kotlinx.kover.api.DefaultIntellijEngine) // change Coverage Engine
+    filters { // common filters for all default Kover tasks
+        classes { // common class filter for all default Kover tasks
+            includes += "com.example.*" // class inclusion rules
+            excludes += listOf() // class exclusion rules
+        }
+    }
 }
 
 val installGitHook by tasks.registering(Copy::class) {
