@@ -1,6 +1,6 @@
 # SPACE PROBE
 
-[![codecov](https://codecov.io/gh/rochajg/space-prbe/branch/maingraph/badge.svg?token=7oWri3d6pl)](https://codecov.io/gh/rochajg/space-prbe)
+[![codecov](https://codecov.io/gh/rochajg/space-probe/branch/main/graph/badge.svg?token=T3Dp1rvRH3)](https://codecov.io/gh/rochajg/space-probe)
 
 ### How to test
 
