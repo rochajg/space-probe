@@ -11,5 +11,5 @@ class HealthCheckClient(
 ) {
 
     fun ping() =
-        this.get<String>("/ping")
+        this.get<String>(url = "/ping")
 }
