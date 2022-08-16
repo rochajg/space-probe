@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val kotestVersion: String by project
+val mockkVersion: String by project
 
 plugins {
     id("org.springframework.boot")
@@ -30,6 +31,7 @@ dependencies {
     // TESTS
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.mockk:mockk:$mockkVersion")
     runtimeOnly("com.h2database:h2") // for tests
 }
 
