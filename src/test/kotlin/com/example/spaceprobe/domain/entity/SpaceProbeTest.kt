@@ -24,7 +24,7 @@ class SpaceProbeTest {
             TestData(from = Direction.N, expected = Direction.E),
             TestData(from = Direction.E, expected = Direction.S),
             TestData(from = Direction.S, expected = Direction.W),
-            TestData(from = Direction.W, expected = Direction.N),
+            TestData(from = Direction.W, expected = Direction.N)
         )
 
         @JvmStatic
@@ -32,7 +32,7 @@ class SpaceProbeTest {
             TestData(from = Direction.N, expected = Direction.W),
             TestData(from = Direction.E, expected = Direction.N),
             TestData(from = Direction.S, expected = Direction.E),
-            TestData(from = Direction.W, expected = Direction.S),
+            TestData(from = Direction.W, expected = Direction.S)
         )
     }
 

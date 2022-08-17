@@ -1,5 +1,7 @@
 package com.example.spaceprobe.application.entrypoint.client
 
+import com.example.spaceprobe.infrastructure.exception.handler.ApiError
+import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
 import com.fasterxml.jackson.module.kotlin.readValue
 import org.springframework.http.MediaType
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
@@ -89,9 +91,16 @@ open class BaseClient(
             status = response.status,
             body = when {
                 T::class.java.isAssignableFrom(String::class.java) -> response.contentAsString
-                else -> this.objectMapper.readValue<T>(response.contentAsString)
+                else -> this.mapOrError<T>(response.contentAsString)
             }
         )
+
+    protected inline fun <reified T> mapOrError(stringResponse: String) =
+        try {
+            this.objectMapper.readValue<T>(stringResponse)
+        } catch (_: MissingKotlinParameterException) {
+            this.objectMapper.readValue<ApiError>(stringResponse)
+        }
 
     inner class Response(
         val status: Int,

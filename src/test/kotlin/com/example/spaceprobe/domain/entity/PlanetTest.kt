@@ -1,6 +1,5 @@
 package com.example.spaceprobe.domain.entity
 
-import com.example.spaceprobe.domain.entity.forms.Square
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -70,22 +69,4 @@ class PlanetTest {
             planet.isOutOfBounds(negativePosition) shouldBe false
         }
     }
-
-    private fun getMockedPlanet(
-        baseX: Int? = 0,
-        baseY: Int? = 0,
-        sizeX: Int? = 5,
-        sizeY: Int? = 5
-    ) = Planet(
-        area = Square(
-            base = Position(
-                x = baseX ?: 0,
-                y = baseY ?: 0,
-            ),
-            size = Position(
-                x = sizeX ?: 5,
-                y = sizeY ?: 5,
-            )
-        )
-    )
 }
