@@ -1,3 +1,7 @@
+# SPACE PROBE
+
+[![codecov](https://codecov.io/gh/rochajg/space-probe/branch/main/graph/badge.svg?token=T3Dp1rvRH3)](https://codecov.io/gh/rochajg/space-probe)
+
 ### How to test
 
 Execute the following request

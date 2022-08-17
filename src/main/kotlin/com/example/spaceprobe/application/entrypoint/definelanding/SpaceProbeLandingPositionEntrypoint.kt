@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/landing-position")
-class SpaceProbeEntrypoint(
+class SpaceProbeLandingPositionEntrypoint(
     private val useCase: DefineProbeLandingUseCase
 ) {
 

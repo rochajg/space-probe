@@ -1,9 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val kotestVersion: String by project
+val mockkVersion: String by project
+
 plugins {
     id("org.springframework.boot")
     id("io.spring.dependency-management")
     id("org.jlleitschuh.gradle.ktlint")
+    id("org.jetbrains.kotlinx.kover")
     kotlin("jvm")
     kotlin("plugin.spring")
 }
@@ -23,7 +27,11 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     runtimeOnly("mysql:mysql-connector-java")
+
+    // TESTS
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.mockk:mockk:$mockkVersion")
     runtimeOnly("com.h2database:h2") // for tests
 }
 
@@ -36,6 +44,17 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+kover {
+    isDisabled.set(false) // true to disable instrumentation and all Kover tasks in this project
+    engine.set(kotlinx.kover.api.DefaultIntellijEngine) // change Coverage Engine
+    filters { // common filters for all default Kover tasks
+        classes { // common class filter for all default Kover tasks
+            includes += "com.example.*" // class inclusion rules
+            excludes += listOf() // class exclusion rules
+        }
+    }
 }
 
 val installGitHook by tasks.registering(Copy::class) {
